@@ -1,0 +1,7 @@
+# Normaliza finais de linha no repositório
+* text=auto eol=lf
+
+# Scripts de inicialização: o .bat precisa de CRLF; .sh e .command precisam de LF
+*.bat     text eol=crlf
+*.sh      text eol=lf
+*.command text eol=lf

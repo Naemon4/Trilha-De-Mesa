@@ -1,0 +1,26 @@
+{
+  "name": "trilha-de-mesa",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Player de música open source para RPG de mesa, com temas do YouTube, loop e transição suave.",
+  "keywords": [
+    "rpg",
+    "rpg-de-mesa",
+    "tabletop",
+    "ttrpg",
+    "music-player",
+    "youtube",
+    "crossfade",
+    "soundtrack"
+  ],
+  "license": "MIT",
+  "author": "Athos Jasper",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

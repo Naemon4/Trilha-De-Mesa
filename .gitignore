@@ -1,0 +1,19 @@
+# Dados pessoais do usuário (temas, volume, posições)
+data/
+*.json.tmp
+
+# Dependências e logs
+node_modules/
+npm-debug.log*
+*.log
+
+# Variáveis de ambiente
+.env
+.env.*
+
+# Sistema operacional e editores
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
