@@ -2,7 +2,7 @@
 
 ## Requisitos
 
-- Node.js 18 ou mais novo (usa `fetch`, `AbortSignal.timeout` e `node:test` nativos)
+- Node.js: recomendado a versão LTS atual; mínimo 18 (`engines` no `package.json`). O código usa `fetch`, `AbortSignal.timeout` e `node:test` nativos, todos disponíveis a partir do 18. O CI roda os testes no Node 18, 20 e 22, em Ubuntu e Windows. Antes de usar uma API mais nova do Node, confira se ela existe no 18 ou suba o mínimo no `package.json`, no CI e nesta seção.
 - Um navegador moderno, com suporte a ES modules, campos privados (`#`) e `structuredClone`
 - Internet, porque o áudio, os títulos e os capítulos vêm do YouTube
 
@@ -105,12 +105,9 @@ Edite `App.#onKeydown` em `presentation/App.js` e acrescente a dica no rodapé (
 
 ## Solução de problemas
 
-| Sintoma                                              | Causa provável / solução                                                              |
-| ---------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| "A porta 5173 já está em uso"                        | O app já está aberto em outra janela. Feche-a ou use `PORT=5174`.                     |
-| "Não consegui ler o arquivo de dados"                | O app foi aberto sem o servidor (por exemplo, abrindo o `index.html` direto) ou o JSON está corrompido. Nada é salvo nessa sessão; corrija e recarregue. |
-| "Não consegui salvar no arquivo"                     | A janela do servidor foi fechada ou o disco está sem espaço ou sem permissão.         |
-| Uma faixa é sempre pulada                            | O dono do vídeo desativou a incorporação. Não há solução pelo app.                    |
-| Playlist não é adicionada                            | Ela é privada, é um mix automático ou o YouTube não respondeu em 15 s.                |
-| Marcadores não aparecem                              | O vídeo não tem capítulos, ou o YouTube mudou o HTML (veja `server/chapters.js`).      |
-| Fade "picotado"                                      | A aba está em segundo plano e o navegador limita os timers. Deixe a aba visível.      |
+Os problemas que o usuário vê estão em [Problemas comuns](../README.md#problemas-comuns), no README. Detalhes que só interessam a quem desenvolve:
+
+- **Porta em uso:** rode uma segunda instância com `PORT=5174` (e um `DATA_FILE` separado, para não disputar o mesmo arquivo).
+- **Marcadores pararam de aparecer em todos os vídeos:** o YouTube provavelmente mudou o HTML da página. As expressões regulares ficam no topo de `server/chapters.js`, e `tests/chapters.test.js` tem exemplos do formato esperado.
+- **`ExperimentalWarning: The Fetch API is an experimental feature` no Node 18:** é inofensivo. O `fetch` só virou estável no Node 21.
+- **Erros no navegador:** abra o console (F12). Falhas do servidor aparecem na janela do terminal.

@@ -18,8 +18,8 @@ Abra uma [issue](../../issues) e conte:
    - textos da interface e comentários em português, nomes de código em inglês;
    - respeite as camadas (`domain` e `application` não importam `infrastructure` nem `presentation`);
    - sem dependências externas, a não ser que haja um bom motivo discutido numa issue.
-4. Adicione ou ajuste testes em `tests/` e confirme que `npm test` passa.
-5. Se mexeu na reprodução ou na interface, siga o [roteiro de teste manual](docs/DESENVOLVIMENTO.md#roteiro-de-teste-manual).
+4. Adicione ou ajuste testes em `tests/` e confirme que `npm test` passa. O CI roda os mesmos testes no Node 18, 20 e 22, em Ubuntu e Windows. O código precisa continuar funcionando no Node 18.
+5. Se mexeu na reprodução ou na interface, siga o [roteiro de teste manual](docs/DESENVOLVIMENTO.md#roteiro-de-teste-manual). O CI não roda no Mac: se mexeu em `Iniciar (Mac).command`, teste num Mac ou peça ajuda no pull request.
 6. Abra o pull request explicando o que mudou e por quê.
 
 ## Antes de começar

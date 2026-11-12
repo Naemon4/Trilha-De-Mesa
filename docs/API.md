@@ -4,14 +4,28 @@ O servidor local (`server.js` → `server/app.js`) expõe duas rotas de API, al�
 
 As rotas `/api/*` só respondem quando o cabeçalho `Host` é local (`localhost`, `127.0.0.1` ou `[::1]`, com qualquer porta). Caso contrário, devolvem `403`. Essa checagem é desligada quando o servidor roda com `HOST` diferente de loopback.
 
+Respostas comuns a todas as rotas `/api/*`:
+
+| Status | Quando                                              |
+| ------ | --------------------------------------------------- |
+| 403    | Cabeçalho `Host` não é local                        |
+| 404    | Rota que não existe (por exemplo, `/api/outra`)     |
+| 500    | Erro inesperado no servidor                         |
+
+Formato dos erros: em `/api/state` e nos status acima, o corpo é texto puro (`text/plain`) com uma mensagem curta. Em `/api/chapters`, é JSON: `{ "error": "<mensagem>" }`.
+
 ## `GET /api/state`
 
-Devolve o conteúdo do arquivo de dados.
+Devolve o conteúdo do arquivo de dados exatamente como está no disco.
 
 | Status | Quando                                            |
 | ------ | ------------------------------------------------- |
-| 200    | Corpo JSON. Se o arquivo ainda não existe: `{}`.  |
+| 200    | Conteúdo do arquivo. Se ele ainda não existe: `{}`. |
 | 500    | Erro ao ler o arquivo (permissão, disco etc.)     |
+
+O servidor não valida o conteúdo na leitura. Se o arquivo estiver corrompido (editado à mão com erro, por exemplo), a resposta é `200` com um corpo que não é JSON válido. Quem detecta isso é o cliente: `JsonFileDocument` falha ao interpretar, desliga a gravação (`canSave = false`) e a interface mostra "Não consegui ler o arquivo de dados".
+
+Qualquer método além de `GET` e `PUT` devolve `405`.
 
 ## `PUT /api/state`
 
